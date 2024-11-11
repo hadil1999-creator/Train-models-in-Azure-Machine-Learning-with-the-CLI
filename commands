@@ -1,1 +1,46 @@
-az extension add -n ml -y
+Install Azure CLI and Azure ML extensions:
+Command: az extension add -n ml -y
+To install the Azure ML extension to interact with Azure Machine Learning.
+
+Command: az ml -h
+To check the available CLI commands related to Azure Machine Learning.
+
+Command: az configure --defaults group="project"
+To set the default resource group to avoid including it in every command.
+
+Create Azure Resources:
+Command: az group create --name "project" --location "eastus"
+To create a resource group for organizing Azure resources.
+
+Command: az ml workspace create --name "aml-project-dev"
+To create a workspace for Azure Machine Learning to manage assets, compute resources, and datasets.
+
+Manage Workspace Assets:
+Command: az ml compute create --name "projectdev-vm" --size STANDARD_DS11_V2 --type ComputeInstance
+To create a compute instance for running machine learning jobs.
+
+Command: az ml compute create --name "aml-cluster" --size STANDARD_DS11_V2 --max-instances 2 --type AmlCompute
+To create a compute cluster for scalable machine learning workloads.
+
+Command: az ml environment create --file basic-env.yml
+To create a custom environment with specified dependencies for training models.
+
+Command: az ml data create --file ./mslearn-aml-cli/Allfiles/Labs/01/data-local-path.yml
+To create a dataset in the workspace for training data.
+
+Run Jobs:
+Command: az ml job download --name <run-id>
+To download files from a specific job run.
+
+az ml compute start --name "prjectdev-vm" --resource-group my-resource-group --workspace-name my-aml-workspace
+To start a compute instance.
+
+Command: az ml compute show --name "prjectdev-vm" --resource-group diabetes-dev-rg --workspace-name aml-diabetes-dev --query state
+To check the status of the compute instance.
+
+Deploy Model to Endpoint:
+Command: az ml online-endpoint create --name diabetes-mlflow -f ./mslearn-aml-cli/Allfiles/Labs/05/mlflow-endpoint/create-endpoint.yml
+To create a managed online endpoint for real-time predictions from the model.
+
+Command: az ml compute stop --name "dev-vm" --no-wait
+To clean resources 
